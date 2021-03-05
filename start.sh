@@ -1,8 +1,6 @@
 #!/bin/bash
 
 export MIX_ENV=prod
-export PORT=5001
-export NODEBIN='pwd'/assets/node_modules/.bin
-export PATH="$PATH:$NODEBIN"
+export PORT=5050
 
 _build/prod/rel/eventapp/bin/eventapp start

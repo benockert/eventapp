@@ -1,9 +1,12 @@
 use Mix.Config
 
+config :eventapp, Eventapp.Endpoint,
+  env: "dev"
+
 # Configure your database
 config :eventapp, Eventapp.Repo,
   username: "events",
-  password: "webdevdebian",
+  password: "eventappdb12",
   database: "eventapp_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
