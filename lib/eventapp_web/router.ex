@@ -7,6 +7,7 @@ defmodule EventappWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug EventappWeb.Plugs.FetchSession #checks for an active user session
   end
 
   pipeline :api do
@@ -20,6 +21,12 @@ defmodule EventappWeb.Router do
 
     #adds the page /events to create new events
     resources "/events", PostController
+
+    #adds the page /users to view user info
+    resources "/users", UserController
+
+    #adds the path for user sessions to support logging in
+    resources "/sessions", SessionController, only: [:create, :delete], singleton: true
   end
 
   # Other scopes may use custom stacks.
@@ -34,6 +41,7 @@ defmodule EventappWeb.Router do
   # If your application does not have an admins-only section yet,
   # you can use Plug.BasicAuth to set up some basic authentication
   # as long as you are also using SSL (which you should anyway).
+  #TODO remove
   if Mix.env() in [:dev, :test] do
     import Phoenix.LiveDashboard.Router
 

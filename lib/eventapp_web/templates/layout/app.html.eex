@@ -1,28 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Eventapp · Phoenix Framework</title>
-    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
-    <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
-  </head>
-  <body>
-    <div role="main" class="container">
-      <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-        <p><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></p>
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eventapp · Phoenix Framework</title>
+  <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+  <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+</head>
+<body>
+  <div role="main" class="container">
+    <div class="row">
+      <%= if @conn.assigns[:current_user] do %>
+      <div class="col-8">
+      </div>
+      <div class="col-4">
+        User: <%= @current_user.username %> |
+        <%= link("Logout", to: Routes.session_path(@conn, :delete), method: :delete) %>
+      </div>
+      <% else %>
+      <div class="col-4">
+      </div>
+      <div class="col-4">
+        <%= form_for @conn, Routes.session_path(@conn, :create), [class: "form-inline"], fn f -> %>
+        <%= text_input f, :name, class: "form-control" %>
+        <%= submit "Login", class: "btn btn-secondary" %>
+        <% end %>
+      </div>
+      <div class="col-2">
+        <p>No account? <%= link "Register", to: Routes.user_path(@conn, :new) %></p>
+      </div>
       <% end %>
+    </div>
 
-      <%= if get_flash(@conn, :info) do %>
-        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <% end %>
 
-      <%= if get_flash(@conn, :error) do %>
-        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-      <% end %>
+    <%= if get_flash(@conn, :info) do %>
+    <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+    <% end %>
+    <%= if get_flash(@conn, :error) do %>
+    <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+    <% end %>
 
-      <%= @inner_content %>
-    </main>
-  </body>
+    <%= @inner_content %>
+  </div>
+</body>
 </html>

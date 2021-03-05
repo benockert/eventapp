@@ -15,14 +15,14 @@ defmodule EventappWeb.PostControllerTest do
   describe "index" do
     test "lists all posts", %{conn: conn} do
       conn = get(conn, Routes.post_path(conn, :index))
-      assert html_response(conn, 200) =~ "Listing Posts"
+      assert html_response(conn, 200) =~ "Upcoming Events"
     end
   end
 
   describe "new post" do
     test "renders form", %{conn: conn} do
       conn = get(conn, Routes.post_path(conn, :new))
-      assert html_response(conn, 200) =~ "New Post"
+      assert html_response(conn, 200) =~ "New Event"
     end
   end
 
@@ -34,12 +34,12 @@ defmodule EventappWeb.PostControllerTest do
       assert redirected_to(conn) == Routes.post_path(conn, :show, id)
 
       conn = get(conn, Routes.post_path(conn, :show, id))
-      assert html_response(conn, 200) =~ "Show Post"
+      assert html_response(conn, 200) =~ "Event Details:"
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.post_path(conn, :create), post: @invalid_attrs)
-      assert html_response(conn, 200) =~ "New Post"
+      assert html_response(conn, 200) =~ "New Event"
     end
   end
 
@@ -48,7 +48,7 @@ defmodule EventappWeb.PostControllerTest do
 
     test "renders form for editing chosen post", %{conn: conn, post: post} do
       conn = get(conn, Routes.post_path(conn, :edit, post))
-      assert html_response(conn, 200) =~ "Edit Post"
+      assert html_response(conn, 200) =~ "Edit Event"
     end
   end
 
@@ -65,7 +65,7 @@ defmodule EventappWeb.PostControllerTest do
 
     test "renders errors when data is invalid", %{conn: conn, post: post} do
       conn = put(conn, Routes.post_path(conn, :update, post), post: @invalid_attrs)
-      assert html_response(conn, 200) =~ "Edit Post"
+      assert html_response(conn, 200) =~ "Edit Event"
     end
   end
 

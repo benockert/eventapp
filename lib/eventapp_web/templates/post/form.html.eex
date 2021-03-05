@@ -9,21 +9,28 @@
     <%= label f, :name %>
     <%= text_input f, :name %>
     <%= error_tag f, :name %>
+  </div>
 
+  <div class="form-group">
     <%= label f, :date %>
     <%= text_input f, :date %>
     <%= error_tag f, :date %>
+  </div>
 
+  <div class="form-group">
     <%= label f, :description %>
     <%= text_input f, :description %>
     <%= error_tag f, :description %>
+  </div>
 
+  <div class="form-group">
     <%= label f, :invitees %>
     <%= text_input f, :invitees %>
     <%= error_tag f, :invitees %>
+    <small class="form-text text-muted">Enter the emails of your guests separated by commas.</small>
   </div>
 
   <div>
-    <%= submit "Save" %>
+    <%= submit "Save Event", class: "btn btn-primary"%>
   </div>
 <% end %>
