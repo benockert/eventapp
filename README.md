@@ -1,3 +1,12 @@
+*This repository, mainly ```lib/eventapp_web/templates``` includes code from and based on Nat Tuck's
+in-class PhotoBlog example.*
+
+# HW7 Design
+- Anyone can view an event, logged-in or not
+- Only a registered and logged-in user can create/edit events and view users
+- A user can only edit their own information
+- The datepicker is confined to only dates in the future.
+
 # Eventapp
 
 To start your Phoenix server:

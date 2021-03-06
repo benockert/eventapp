@@ -1,5 +1,7 @@
-<h1>Edit Event</h1>
-
-<%= render "form.html", Map.put(assigns, :action, Routes.post_path(@conn, :update, @post)) %>
-
-<span><%= link "Back", to: Routes.post_path(@conn, :index) %></span>
+<h1>Edit Event: <%= @post.name %></h1>
+<%= if @conn.assigns[:current_user] do %>
+  <%= render "form.html", Map.put(assigns, :action, Routes.post_path(@conn, :update, @post)) %>
+  <span><%= link "Back", to: Routes.post_path(@conn, :index) %></span>
+<% else %>
+  <p>Please <%= link "register", to: Routes.user_path(@conn, :new) %> or login to edit this event</p>
+<% end %>

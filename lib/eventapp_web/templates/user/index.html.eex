@@ -1,28 +1,26 @@
 <h1>Current Users</h1>
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Username</th>
-      <th>Email</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for user <- @users do %>
-    <tr>
-      <td><%= user.username %></td>
-      <td><%= user.email %></td>
-
-      <td>
-        <span><%= link "Show", to: Routes.user_path(@conn, :show, user) %></span>
-        <span><%= link "Edit", to: Routes.user_path(@conn, :edit, user) %></span>
-        <span><%= link "Delete", to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
-    </tr>
+<%= if @conn.assigns[:current_user] do %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for user <- @users do %>
+        <tr>
+          <td><%= user.username %></td>
+          <td><%= user.email %></td>
+          <td>
+            <span><%= link "Show User", to: Routes.user_path(@conn, :show, user) %></span>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <span><%= link "Register a new user", to: Routes.user_path(@conn, :new) %></span>
+<% else %>
+  <p>Please <%= link "register", to: Routes.user_path(@conn, :new) %> or login to view other users.</p>
 <% end %>
-  </tbody>
-</table>
-
-<span><%= link "New User", to: Routes.user_path(@conn, :new) %></span>

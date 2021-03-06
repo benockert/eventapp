@@ -1,5 +1,11 @@
 <h1>Edit User</h1>
-
-<%= render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :update, @user)) %>
-
-<span><%= link "Back", to: Routes.user_path(@conn, :index) %></span>
+<%= if @conn.assigns[:current_user] do %>
+  <%= if @current_user.email === @user.email do %>
+    <%= render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :update, @user)) %>
+    <span><%= link "Back", to: Routes.user_path(@conn, :index) %></span>
+  <% else %>
+    <p>You cannot edit users that are not you.</p>
+  <% end %>
+<% else %>
+  <p>Please <%= link "register", to: Routes.user_path(@conn, :new) %> or login first.</p>
+<% end %>

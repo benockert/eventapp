@@ -1,12 +1,7 @@
-<p>
-  <span><%= link "Edit", to: Routes.post_path(@conn, :edit, @post) %></span>
-  <span><%= link "Back", to: Routes.post_path(@conn, :index) %></span>
-</p>
-
 <h1>Event Details: <%= @post.name %></h1>
-
 <div>
   <p><strong>Date: </strong><%= @post.date %></p>
   <p><strong>Description: </strong><%= @post.description %></p>
   <p><strong>Invitees: </strong><%= @post.invitees %></p>
 </div>
+<span><%= link "Edit event", to: Routes.post_path(@conn, :edit, @post) %></span>

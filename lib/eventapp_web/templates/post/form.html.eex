@@ -7,25 +7,28 @@
 
   <div class="form-group">
     <%= label f, :name %>
-    <%= text_input f, :name %>
+    <%= text_input f, :name , class: "form-control"%>
     <%= error_tag f, :name %>
+    <small class="form-text text-muted">Enter your event name.</small>
   </div>
 
   <div class="form-group">
     <%= label f, :date %>
-    <%= text_input f, :date %>
+    <%= text_input f, :date, id: "datepicker", class: "form-control" %>
     <%= error_tag f, :date %>
+    <small class="form-text text-muted">Enter the date of your event.</small>
   </div>
 
   <div class="form-group">
     <%= label f, :description %>
-    <%= text_input f, :description %>
+    <%= text_input f, :description, class: "form-control" %>
     <%= error_tag f, :description %>
+    <small class="form-text text-muted">Enter a brief description of your event.</small>
   </div>
 
   <div class="form-group">
     <%= label f, :invitees %>
-    <%= text_input f, :invitees %>
+    <%= text_input f, :invitees, class: "form-control" %>
     <%= error_tag f, :invitees %>
     <small class="form-text text-muted">Enter the emails of your guests separated by commas.</small>
   </div>
