@@ -15,13 +15,16 @@ alias Eventapp.Posts.Post
 
 joseph = Repo.insert!(%User{username: "Joseph Aoun", email: "aoun.j@northeastern.edu"})
 andrade = Repo.insert!(%User{username: "Andrade Ferron", email: "ferron.a@northeastern.edu"})
+nat = Repo.insert!(%User{username: "Nat Tuck", email: "tuck.n@northeastern.edu"})
+benjamin = Repo.insert!(%User{username: "Benjamin Ockert", email: "ockert.b@northeastern.edu"})
+steven = Repo.insert!(%User{username: "Steven Yoo", email: "yoo.s@northeastern.edu"})
 
 Repo.insert!(%Post{user_id: joseph.id, name: "Commencement",
                                       date: "05/07/2021",
                                       description: "Graduation for the Class of 2021!",
-                                      invitees: "No in person attendance"})
+                                      invitees: "ockert.b@northeastern.edu, yoo.s@northeastern.edu, ferron.a@northeastern.edu"})
 
 Repo.insert!(%Post{user_id: andrade.id, name: "CSI Budgets Due",
                                       date: "05/04/2021",
                                       description: "All CSI organization's budget requests are due",
-                                      invitees: "aoun.j@northeastern.edu"})
+                                      invitees: "ockert.b@northeastern.edu"})

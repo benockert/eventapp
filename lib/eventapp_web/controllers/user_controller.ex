@@ -18,7 +18,7 @@ defmodule EventappWeb.UserController do
     case Users.create_user(user_params) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "User created successfully.")
+        |> put_flash(:info, "User created successfully. Please proceed to login.")
         |> redirect(to: Routes.user_path(conn, :show, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
