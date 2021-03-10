@@ -36,3 +36,6 @@ $('#datepicker').datepicker({
   startDate: today,
   autoclose: true
 });
+
+$('#profilepicture').css({"width": "150", "height": "150"});
+

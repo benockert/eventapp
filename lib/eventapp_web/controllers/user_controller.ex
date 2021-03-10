@@ -3,6 +3,7 @@ defmodule EventappWeb.UserController do
 
   alias Eventapp.Users
   alias Eventapp.Users.User
+  alias Eventapp.Pictures
 
   def index(conn, _params) do
     users = Users.list_users()
@@ -15,6 +16,12 @@ defmodule EventappWeb.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
+    pic = user_params["picture"]
+    {:ok, hash} = Pictures.save_picture(pic.filename, pic.path)
+    user_params = user_params
+    |> Map.put("picture_hash", hash)
+    #|> Map.put("user_id", conn.assigns[:current_user].id) TODO removed?
+
     case Users.create_user(user_params) do
       {:ok, user} ->
         conn
@@ -24,6 +31,15 @@ defmodule EventappWeb.UserController do
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
+  end
+
+  # loads the profile picture of the user with the given id
+  def picture(conn, %{"id" => id}) do
+    user = Users.get_user!(id)
+    {:ok, _name, data} = Pictures.load_picture(user.picture_hash)
+    conn
+    |> put_resp_content_type("image/jpeg")
+    |> send_resp(200, data)
   end
 
   def show(conn, %{"id" => id}) do
@@ -39,6 +55,15 @@ defmodule EventappWeb.UserController do
 
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Users.get_user!(id)
+    pic = user_params["picture"]
+
+    user_params = if pic do
+      {:ok, _hash} = Pictures.delete_picture(user.picture_hash)
+      {:ok, hash} = Pictures.save_picture(pic.filename, pic.path)
+      Map.put(user_params, "picture_hash", hash)
+    else
+      user_params
+    end
 
     case Users.update_user(user, user_params) do
       {:ok, user} ->
@@ -53,6 +78,7 @@ defmodule EventappWeb.UserController do
 
   def delete(conn, %{"id" => id}) do
     user = Users.get_user!(id)
+    {:ok, _hash} = Pictures.delete_picture(user.picture_hash)
     {:ok, _user} = Users.delete_user(user)
 
     conn

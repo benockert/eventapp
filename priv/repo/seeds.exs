@@ -13,11 +13,11 @@ alias Eventapp.Repo
 alias Eventapp.Users.User
 alias Eventapp.Posts.Post
 
-joseph = Repo.insert!(%User{username: "Joseph Aoun", email: "aoun.j@northeastern.edu"})
-andrade = Repo.insert!(%User{username: "Andrade Ferron", email: "ferron.a@northeastern.edu"})
-nat = Repo.insert!(%User{username: "Nat Tuck", email: "tuck.n@northeastern.edu"})
-benjamin = Repo.insert!(%User{username: "Benjamin Ockert", email: "ockert.b@northeastern.edu"})
-steven = Repo.insert!(%User{username: "Steven Yoo", email: "yoo.s@northeastern.edu"})
+joseph = Repo.insert!(%User{username: "Joseph Aoun", email: "aoun.j@northeastern.edu", picture_hash: ""})
+andrade = Repo.insert!(%User{username: "Andrade Ferron", email: "ferron.a@northeastern.edu", picture_hash: ""})
+nat = Repo.insert!(%User{username: "Nat Tuck", email: "tuck.n@northeastern.edu", picture_hash: ""})
+benjamin = Repo.insert!(%User{username: "Benjamin Ockert", email: "ockert.b@northeastern.edu", picture_hash: ""})
+steven = Repo.insert!(%User{username: "Steven Yoo", email: "yoo.s@northeastern.edu", picture_hash: ""})
 
 Repo.insert!(%Post{user_id: joseph.id, name: "Commencement",
                                       date: "05/07/2021",

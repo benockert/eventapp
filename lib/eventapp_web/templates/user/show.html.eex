@@ -1,5 +1,6 @@
 <h1>Show User #<%= @user.id %></h1>
 <%= if @conn.assigns[:current_user] do %>
+<img src="<%= Routes.user_path(@conn, :picture, @user) %>" alt="" id="profilepicture">
   <ul>
     <li>
       <strong>Username:</strong>

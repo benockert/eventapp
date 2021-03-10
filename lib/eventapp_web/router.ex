@@ -19,6 +19,9 @@ defmodule EventappWeb.Router do
 
     get "/", PageController, :index
 
+    #adds the path for user profile pictures
+    get "/users/picture/:id", UserController, :picture
+
     #adds the page /events to create new events
     resources "/events", PostController
 

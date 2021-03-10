@@ -5,6 +5,7 @@ defmodule Eventapp.Users.User do
   schema "users" do
     field :username, :string
     field :email, :string
+    field :picture_hash, :string
 
     #indicates a one-to-many relationship of user to posts
     has_many :posts, Eventapp.Posts.Post
@@ -16,7 +17,7 @@ defmodule Eventapp.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:username, :email])
-    |> validate_required([:username])
+    |> cast(attrs, [:username, :email, :picture_hash])
+    |> validate_required([:username, :email, :picture_hash])
   end
 end
