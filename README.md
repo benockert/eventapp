@@ -1,6 +1,9 @@
 *This repository, mainly ```lib/eventapp_web/templates``` includes code from and based on Nat Tuck's
 in-class PhotoBlog example.*
 
+# HW8 Design
+- When a new comment is added, the user is redirected to the post, rather than the Show Comment page 
+
 # HW7 Design
 - Anyone can view an event, logged-in or not
 - Only a registered and logged-in user can create/edit events and view users

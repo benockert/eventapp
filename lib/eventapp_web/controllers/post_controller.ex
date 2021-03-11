@@ -4,6 +4,17 @@ defmodule EventappWeb.PostController do
   alias Eventapp.Posts
   alias Eventapp.Posts.Post
 
+  alias Eventapp.Comments
+
+  # we need the post first before we perform any actions on it
+  plug :fetch_post when action not in [:index, :new]
+
+  def fetch_post(conn, _args) do
+    id = conn.params["id"]
+    post = Posts.get_post!(id)
+    assign(conn, :post, post)
+  end
+
   def index(conn, _params) do
     posts = Posts.list_posts()
     render(conn, "index.html", posts: posts)
@@ -28,9 +39,14 @@ defmodule EventappWeb.PostController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    post = Posts.get_post!(id)
-    render(conn, "show.html", post: post)
+  def show(conn, %{"id" => _id}) do
+    post = Posts.get_comments(conn.assigns[:post])
+    comment = %Comments.Comment{
+      post_id: post.id,
+      user_id: current_user_id(conn),
+    }
+    new_comment = Comments.change_comment(comment)
+    render(conn, "show.html", post: post, new_comment: new_comment)
   end
 
   def edit(conn, %{"id" => id}) do

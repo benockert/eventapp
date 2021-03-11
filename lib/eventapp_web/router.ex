@@ -28,6 +28,9 @@ defmodule EventappWeb.Router do
     #adds the page /users to view user info
     resources "/users", UserController
 
+    #adds the page /comments to see all comments on events
+    resources "/comments", CommentController
+
     #adds the path for user sessions to support logging in
     resources "/sessions", SessionController, only: [:create, :delete], singleton: true
   end

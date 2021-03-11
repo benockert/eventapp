@@ -10,6 +10,9 @@ defmodule Eventapp.Users.User do
     #indicates a one-to-many relationship of user to posts
     has_many :posts, Eventapp.Posts.Post
 
+    #establishes a one-to-many relationship for user to comments
+    has_many :comments, Eventapp.Comments.Comment
+
 
     timestamps()
   end

@@ -12,6 +12,9 @@ defmodule Eventapp.Posts.Post do
     #assign each post to the id of the user who created it
     belongs_to :user, Eventapp.Users.User
 
+    #establishes a one-to-many relationship for post to comments
+    has_many :comments, Eventapp.Comments.Comment
+
     timestamps()
   end
 

@@ -36,8 +36,19 @@ defmodule Eventapp.Posts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_post!(id), do: Repo.get!(Post, id)
 
+  # we preload the user so we can access the username of the original poster
+  def get_post!(id) do
+    Repo.get!(Post, id)
+    |> Repo.preload(:user)
+  end
+
+  # loads all of the comments associated with the given post
+  def get_comments(%Post{} = post) do
+    Repo.preload(post, [comments: :user])
+  end
+
+  
   @doc """
   Creates a post.
 

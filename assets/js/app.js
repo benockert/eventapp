@@ -38,4 +38,5 @@ $('#datepicker').datepicker({
 });
 
 $('#profilepicture').css({"width": "150", "height": "150"});
+$('[id="profilepicture_comment"').css({"width": "30", "height": "30"});
 
