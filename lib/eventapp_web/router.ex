@@ -17,21 +17,21 @@ defmodule EventappWeb.Router do
   scope "/", EventappWeb do
     pipe_through :browser
 
+    #home page route
     get "/", PageController, :index
-
-    #adds the path for user profile pictures
+    #route to get a user's profile picture
     get "/users/picture/:id", UserController, :picture
-
-    #adds the page /events to create new events
+    #all routes for events
     resources "/events", PostController
-
-    #adds the page /users to view user info
+    #all routes for users
     resources "/users", UserController
 
-    #adds the page /comments to see all comments on events
-    resources "/comments", CommentController
+    #specific routes for comments; no view all or edit
+    get "/comments/:id", CommentController, :show
+    delete "/comments/:id", CommentController, :delete
+    post "/comments/new", CommentController, :create
 
-    #adds the path for user sessions to support logging in
+    #adds the routes for user sessions to support logging in
     resources "/sessions", SessionController, only: [:create, :delete], singleton: true
   end
 

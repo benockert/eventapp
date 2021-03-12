@@ -49,6 +49,33 @@ defmodule Eventapp.Users do
     Repo.get_by(User, email: email)
   end
 
+  # checks that the email does not already have a user associated with it, and also
+  # makes sure it is a valid email
+  def validate_email(attrs) do
+    email = attrs
+    |> Map.get("email")
+
+    user = get_user_by_email(email)
+    if user do
+      # the user exits, return an error message
+      {:error, "User with that email already exists"}
+    else
+      at? = email
+      |> String.contains?("@")
+
+      dot? = email
+      |> String.contains?(".")
+
+      if at? && dot? do
+        # return ok message
+        {:ok, attrs}
+      else
+        # the email is not valid, return an error message
+        {:error, "Invalid email address"}
+      end
+    end
+  end
+
   @doc """
   Creates a user.
 
@@ -62,9 +89,14 @@ defmodule Eventapp.Users do
 
   """
   def create_user(attrs \\ %{}) do
-    %User{}
-    |> User.changeset(attrs)
-    |> Repo.insert()
+    case validate_email(attrs) do
+      {:ok, attrs} ->
+        %User{}
+        |> User.changeset(attrs)
+        |> Repo.insert()
+      {:error, msg} ->
+        {:error, msg}
+    end
   end
 
   @doc """
@@ -80,9 +112,14 @@ defmodule Eventapp.Users do
 
   """
   def update_user(%User{} = user, attrs) do
-    user
-    |> User.changeset(attrs)
-    |> Repo.update()
+    case validate_email(attrs) do
+      {:ok, attrs} ->
+        user
+        |> User.changeset(attrs)
+        |> Repo.update()
+      {:error, msg} ->
+        {:error, msg}
+    end
   end
 
   @doc """

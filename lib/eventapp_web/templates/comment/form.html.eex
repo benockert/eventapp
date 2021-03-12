@@ -5,14 +5,15 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= text_input f, :content , class: "form-control"%>
+  <div class="form-group btnInside">
+    <%= text_input f, :content , class: "form-control", placeholder: "Type a new comment..."%>
     <%= error_tag f, :content %>
     <%= hidden_input f, :post_id %>
     <%= hidden_input f, :user_id %>
+    <%= submit "Comment", class: "btn btn-primary btnComment" %>
   </div>
 
   <div>
-    <%= submit "Submit", class: "btn btn-primary" %>
+
   </div>
 <% end %>

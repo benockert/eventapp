@@ -7,7 +7,7 @@ defmodule EventappWeb.PostController do
   alias Eventapp.Comments
 
   # we need the post first before we perform any actions on it
-  plug :fetch_post when action not in [:index, :new]
+  plug :fetch_post when action not in [:index, :new, :create]
 
   def fetch_post(conn, _args) do
     id = conn.params["id"]
@@ -35,7 +35,9 @@ defmodule EventappWeb.PostController do
         |> redirect(to: Routes.post_path(conn, :show, post))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        conn
+        |> put_flash(:info, "Email must be valid.")
+        #render(conn, "new.html", changeset: changeset)
     end
   end
 

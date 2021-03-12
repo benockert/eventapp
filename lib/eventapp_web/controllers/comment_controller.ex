@@ -62,11 +62,15 @@ defmodule EventappWeb.CommentController do
   end
 
   def delete(conn, %{"id" => id}) do
+    # get the comment to be deleted
     comment = Comments.get_comment!(id)
+    # get the post associated with that comment
+    post = comment.post
+    # delete the comment
     {:ok, _comment} = Comments.delete_comment(comment)
-
+    # if successful, flash a message and redirect back to the post page
     conn
     |> put_flash(:info, "Comment deleted successfully.")
-    |> redirect(to: Routes.comment_path(conn, :index))
+    |> redirect(to: Routes.post_path(conn, :show, post))
   end
 end

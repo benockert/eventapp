@@ -11,9 +11,6 @@
       <%= @user.email %>
     </li>
   </ul>
-  <%= if @current_user.email === @user.email do %>
-    <span><%= link "Edit", to: Routes.user_path(@conn, :edit, @user) %></span>
-  <% end %>
 <% else %>
   <p>Please <%= link "register", to: Routes.user_path(@conn, :new) %> or login to view user information.</p>
 <% end %>

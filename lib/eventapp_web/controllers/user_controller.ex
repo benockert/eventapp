@@ -27,9 +27,14 @@ defmodule EventappWeb.UserController do
         conn
         |> put_flash(:info, "User created successfully. Please proceed to login.")
         |> redirect(to: Routes.user_path(conn, :show, user))
-
+      # generic error with creating a user
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
+      # error message to display (if error with creating a user i.e. invalid email or duplicate)
+      {:error, msg} ->
+        conn
+        |> put_flash(:error, msg)
+        |> redirect(to: Routes.user_path(conn, :new))
     end
   end
 
@@ -70,9 +75,13 @@ defmodule EventappWeb.UserController do
         conn
         |> put_flash(:info, "User updated successfully.")
         |> redirect(to: Routes.user_path(conn, :show, user))
-
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset)
+      # error message to display (if error with updating a user i.e. invalid email or duplicate)
+      {:error, msg} ->
+        conn
+        |> put_flash(:error, msg)
+        |> redirect(to: Routes.user_path(conn, :new))
     end
   end
 
