@@ -15,13 +15,25 @@ defmodule EventappWeb.UserController do
     render(conn, "new.html", changeset: changeset)
   end
 
+  # saves the photo given when creating a user, or sets it to the default
+  # stock photo if no picture is given
+  def save_photo(params, conn) do
+    pic = params["picture"]
+    if pic do
+      {:ok, hash} = Pictures.save_picture(pic.filename, pic.path)
+      params
+      |> Map.put("user_id", conn.assigns[:current_user].id)
+      |> Map.put("picture_hash", hash)
+    else
+      hash = Pictures.hash("stock.jpg")
+      params |> Map.put("picture_hash", hash)
+    end
+  end
+
   def create(conn, %{"user" => user_params}) do
-    # pic is the
-    pic = user_params["picture"]
-    {:ok, hash} = Pictures.save_picture(pic.filename, pic.path)
+    # sets the hash of the picture
     user_params = user_params
-    |> Map.put("user_id", conn.assigns[:current_user].id)
-    |> Map.put("picture_hash", hash)
+    |> save_photo(conn)
 
     case Users.create_user(user_params) do
       {:ok, user} ->

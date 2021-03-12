@@ -31,7 +31,8 @@ defmodule EventappWeb.PostController do
     case Posts.create_post(post_params) do
       {:ok, post} ->
         conn
-        |> put_flash(:info, "Post created successfully.")
+        |> put_flash(:info, "Event created successfully. Email the following link to your
+        invitees: https://events.benockert.site/events/#{post.id}")
         |> redirect(to: Routes.post_path(conn, :show, post))
       # error creating event
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -66,7 +67,7 @@ defmodule EventappWeb.PostController do
     case Posts.update_post(post, post_params) do
       {:ok, post} ->
         conn
-        |> put_flash(:info, "Post updated successfully. Email the following link to any new
+        |> put_flash(:info, "Event updated successfully. Email the following link to any new
         invitees: https://events.benockert.site/events/#{post.id}")
         |> redirect(to: Routes.post_path(conn, :show, post))
       # error updating post

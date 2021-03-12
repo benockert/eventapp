@@ -1,12 +1,21 @@
-<h1>Events Feed</h1>
-<div class="row">
-  <%= for event <- @posts do %>
-    <div class="col-sm-4 card">
-      <div class="card-body">
-        <h3 class="card-title"><%= event.name %></h3>
-        <p class="card-text"><%= event.description %></p>
-        <%= link "view", to: Routes.post_path(@conn, :show, event) %>
-      </div>
-    </div>
-  <% end %>
-</div>
+<h1>Your Events Feed</h1>
+<%= if @conn.assigns[:current_user] do %>
+  <div>
+    <%= link "Create a new event", to: Routes.post_path(@conn, :new) %>
+  </div>
+  <div class="row">
+    <%= for event <- @posts do %>
+      <%= if event.user.email === @current_user.email || String.contains?(event.invitees, @current_user.email) do %>
+        <div class="col-sm-4 card">
+          <div class="card-body">
+            <h3 class="card-title"><%= event.name %></h3>
+            <p class="card-text"><%= event.description %></p>
+            <%= link "view", to: Routes.post_path(@conn, :show, event) %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% else %>
+  <p>Please <%= link "register", to: Routes.user_path(@conn, :new) %> or login to see your events feed.</p>
+<% end %>
