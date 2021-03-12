@@ -5,6 +5,7 @@ defmodule EventappWeb.PostController do
   alias Eventapp.Posts.Post
 
   alias Eventapp.Comments
+  alias Eventapp.Responses
 
   # we need the post first before we perform any actions on it
   plug :fetch_post when action not in [:index, :new, :create]
@@ -30,6 +31,7 @@ defmodule EventappWeb.PostController do
     |> Map.put("user_id", conn.assigns[:current_user].id)
     case Posts.create_post(post_params) do
       {:ok, post} ->
+        Responses.create_responses(post)
         conn
         |> put_flash(:info, "Event created successfully. Email the following link to your
         invitees: https://events.benockert.site/events/#{post.id}")
@@ -45,14 +47,21 @@ defmodule EventappWeb.PostController do
     end
   end
 
+  # gets all of the current comments and responses of this event
   def show(conn, %{"id" => _id}) do
-    post = Posts.get_comments(conn.assigns[:post])
+    post = Posts.load_resources(conn.assigns[:post])
     comment = %Comments.Comment{
       post_id: post.id,
       user_id: current_user_id(conn),
     }
     new_comment = Comments.change_comment(comment)
-    render(conn, "show.html", post: post, new_comment: new_comment)
+    response = %Responses.Response{
+      post_id: post.id,
+      user_id: current_user_id(conn),
+      response: "NO"
+    }
+    new_response = Responses.change_response(response)
+    render(conn, "show.html", post: post, new_comment: new_comment, new_response: new_response)
   end
 
   def edit(conn, %{"id" => id}) do

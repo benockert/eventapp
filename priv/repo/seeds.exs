@@ -12,6 +12,7 @@
 alias Eventapp.Repo
 alias Eventapp.Users.User
 alias Eventapp.Posts.Post
+alias Eventapp.Responses.Response
 
 #adding photos
 alias Eventapp.Pictures
@@ -24,12 +25,18 @@ nat = Repo.insert!(%User{username: "Nat Tuck", email: "tuck.n@northeastern.edu",
 benjamin = Repo.insert!(%User{username: "Benjamin Ockert", email: "ockert.b@northeastern.edu", picture_hash: silhouette})
 steven = Repo.insert!(%User{username: "Steven Yoo", email: "yoo.s@northeastern.edu", picture_hash: silhouette})
 
-Repo.insert!(%Post{user_id: joseph.id, name: "Commencement",
+commencement = Repo.insert!(%Post{user_id: joseph.id, name: "Commencement",
                                       date: "05/07/2021",
                                       description: "Graduation for the Class of 2021!",
                                       invitees: "ockert.b@northeastern.edu, yoo.s@northeastern.edu, ferron.a@northeastern.edu"})
 
-Repo.insert!(%Post{user_id: andrade.id, name: "CSI Budgets Due",
-                                      date: "05/04/2021",
-                                      description: "All CSI organization's budget requests are due",
+dayoff = Repo.insert!(%Post{user_id: andrade.id, name: "Mental Health Day",
+                                      date: "03/24/2021",
+                                      description: "A day off for students during the Spring 2021 semester",
                                       invitees: "ockert.b@northeastern.edu"})
+
+Repo.insert!(%Response{response: "YES", user_id: benjamin.id, post_id: commencement.id})
+Repo.insert!(%Response{response: "NO", user_id: andrade.id, post_id: commencement.id})
+Repo.insert!(%Response{response: "NO RESPONSE", user_id: steven.id, post_id: commencement.id})
+
+Repo.insert!(%Response{response: "NO RESPONSE", user_id: benjamin.id, post_id: dayoff.id})

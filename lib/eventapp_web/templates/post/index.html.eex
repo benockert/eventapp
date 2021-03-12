@@ -12,7 +12,7 @@
   <tbody>
     <%= for post <- @posts do %>
       <%= if @conn.assigns[:current_user] do %>
-        <%= if post.user.email === @current_user.email || String.contains?(post.invitees, @current_user.email) do%>
+        <%= if post.user.email === @current_user.email || String.contains?(post.invitees, @current_user.email) do %>
           <tr>
             <td><%= post.name %></td>
             <td><%= post.date %></td>

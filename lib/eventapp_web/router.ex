@@ -31,6 +31,9 @@ defmodule EventappWeb.Router do
     delete "/comments/:id", CommentController, :delete
     post "/comments/new", CommentController, :create
 
+    #specific routes for comments; no view all or edit TODO edit so only get, create, update
+    resources "/responses", ResponseController
+
     #adds the routes for user sessions to support logging in
     resources "/sessions", SessionController, only: [:create, :delete], singleton: true
   end

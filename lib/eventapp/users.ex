@@ -7,6 +7,7 @@ defmodule Eventapp.Users do
   alias Eventapp.Repo
 
   alias Eventapp.Users.User
+  alias Eventapp.Responses.Response
   alias Eventapp.Pictures
 
   @doc """

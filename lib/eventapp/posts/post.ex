@@ -15,6 +15,9 @@ defmodule Eventapp.Posts.Post do
     #establishes a one-to-many relationship for post to comments
     has_many :comments, Eventapp.Comments.Comment
 
+    #establishes a one-to-many relationship of post to responses
+    has_many :responses, Eventapp.Responses.Response
+
     timestamps()
   end
 

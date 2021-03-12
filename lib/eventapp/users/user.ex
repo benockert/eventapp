@@ -13,6 +13,9 @@ defmodule Eventapp.Users.User do
     #establishes a one-to-many relationship for user to comments
     has_many :comments, Eventapp.Comments.Comment
 
+    #establishes a one-to-many relationship of user to responses
+    has_many :responses, Eventapp.Responses.Response
+
 
     timestamps()
   end

@@ -1,0 +1,28 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-check form-check-inline">
+    <%= label f, "Yes", class: "form-check-label"%>
+    <%= radio_button f, :response, "Yes" %>
+    <%= error_tag f, :response %>
+    <%= hidden_input f, :post_id %>
+    <%= hidden_input f, :user_id %>
+  </div>
+  <div class="form-check form-check-inline">
+    <%= label f, "No", class: "form-check-label"%>
+    <%= radio_button f, :response, "No" %>
+    <%= error_tag f, :response %>
+    <%= hidden_input f, :post_id %>
+    <%= hidden_input f, :user_id %>
+  </div>
+  <div>
+      <%= submit "Update", class: "btn btn-primary" %>
+  </div>
+
+
+
+<% end %>

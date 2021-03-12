@@ -12,8 +12,4 @@
     <%= hidden_input f, :user_id %>
     <%= submit "Comment", class: "btn btn-primary btnComment" %>
   </div>
-
-  <div>
-
-  </div>
 <% end %>

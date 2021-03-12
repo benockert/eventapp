@@ -45,9 +45,9 @@ defmodule Eventapp.Posts do
     |> Repo.preload(:user)
   end
 
-  # loads all of the comments associated with the given post
-  def get_comments(%Post{} = post) do
-    Repo.preload(post, [comments: :user])
+  # loads all of the comments and responses associated with the given post
+  def load_resources(%Post{} = post) do
+    Repo.preload(post, [comments: :user, responses: :user])
   end
 
   def handle_invitees(attrs) do
