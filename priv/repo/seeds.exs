@@ -16,22 +16,13 @@ alias Eventapp.Posts.Post
 #adding photos
 alias Eventapp.Pictures
 
-defmodule Inject do
-  def photo(name) do
-    photos = Application.app_dir(:eventapp, "priv/pictures")
-    path = Path.join(photos, name)
-    {:ok, hash} = Pictures.save_picture(name, path)
-    hash
-  end
-end
+silhouette = Pictures.hash("stock.jpg")
 
-blank = Inject.photo("stock.jpg")
-
-joseph = Repo.insert!(%User{username: "Joseph Aoun", email: "aoun.j@northeastern.edu", picture_hash: blank})
-andrade = Repo.insert!(%User{username: "Andrade Ferron", email: "ferron.a@northeastern.edu", picture_hash: blank})
-nat = Repo.insert!(%User{username: "Nat Tuck", email: "tuck.n@northeastern.edu", picture_hash: blank})
-benjamin = Repo.insert!(%User{username: "Benjamin Ockert", email: "ockert.b@northeastern.edu", picture_hash: blank})
-steven = Repo.insert!(%User{username: "Steven Yoo", email: "yoo.s@northeastern.edu", picture_hash: blank})
+joseph = Repo.insert!(%User{username: "Joseph Aoun", email: "aoun.j@northeastern.edu", picture_hash: silhouette})
+andrade = Repo.insert!(%User{username: "Andrade Ferron", email: "ferron.a@northeastern.edu", picture_hash: silhouette})
+nat = Repo.insert!(%User{username: "Nat Tuck", email: "tuck.n@northeastern.edu", picture_hash: silhouette})
+benjamin = Repo.insert!(%User{username: "Benjamin Ockert", email: "ockert.b@northeastern.edu", picture_hash: silhouette})
+steven = Repo.insert!(%User{username: "Steven Yoo", email: "yoo.s@northeastern.edu", picture_hash: silhouette})
 
 Repo.insert!(%Post{user_id: joseph.id, name: "Commencement",
                                       date: "05/07/2021",

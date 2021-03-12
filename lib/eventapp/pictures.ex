@@ -1,5 +1,14 @@
 #inspired by Nat Tuck's photo_blog implementation from lecture
 defmodule Eventapp.Pictures do
+
+  #gets the hash of the file with the given Name **must be in priv/pictures directory**
+  def hash(name) do
+      photos = Application.app_dir(:eventapp, "priv/pictures")
+      path = Path.join(photos, name)
+      {:ok, hash} = save_picture(name, path)
+      hash
+  end
+
   def save_picture(file_name, path) do
     data = File.read!(path)
     hash = sha256(data)

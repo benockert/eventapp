@@ -66,7 +66,8 @@ defmodule EventappWeb.PostController do
     case Posts.update_post(post, post_params) do
       {:ok, post} ->
         conn
-        |> put_flash(:info, "Post updated successfully.")
+        |> put_flash(:info, "Post updated successfully. Email the following link to any new
+        invitees: https://events.benockert.site/events/#{post.id}")
         |> redirect(to: Routes.post_path(conn, :show, post))
       # error updating post
       {:error, %Ecto.Changeset{} = changeset} ->

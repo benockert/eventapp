@@ -7,6 +7,7 @@ defmodule Eventapp.Users do
   alias Eventapp.Repo
 
   alias Eventapp.Users.User
+  alias Eventapp.Pictures
 
   @doc """
   Returns the list of users.
@@ -64,7 +65,8 @@ defmodule Eventapp.Users do
 
       if at? && dot? do
         # if the user does not exist yet but the email is in proper form, create a user entry
-        Repo.insert!(%User{username: "", email: email, picture_hash: ""})
+        photo = Pictures.hash("stock.jpg") #silhouette photo by default
+        Repo.insert!(%User{username: "", email: email, picture_hash: photo})
         # return the email for the invitee list
         email
       else

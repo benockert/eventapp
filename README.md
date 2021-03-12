@@ -2,6 +2,8 @@
 in-class PhotoBlog example.*
 
 # HW8 Design
+- When a post is created with invitee emails that are not associated with an account, a user entry is made with that email; upon logging in with that email, the user will be prompted to complete their account with a username and picture
+- A user cannot edit their email once their account has been created
 - When a new comment is added, the user is redirected to the post, rather than the Show Comment page 
 
 # HW7 Design

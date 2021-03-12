@@ -19,19 +19,19 @@
           <div class="col-4"></div>
           <div class="col-4">
             User: <%= @current_user.username %> |
-            <%= link("Logout", to: Routes.session_path(@conn, :delete), method: :delete) %> |
+            <%= link "Logout", to: Routes.session_path(@conn, :delete), method: :delete %> |
             <%= link "Profile", to: Routes.user_path(@conn, :show, @current_user) %>
           </div>
         <% else %>
-        <div class="col-4">
-          <%= form_for @conn, Routes.session_path(@conn, :create), [class: "form-inline"], fn f -> %>
-          <%= text_input f, :email, class: "form-control" %>
-          <%= submit "Login", class: "btn btn-secondary" %>
-          <% end %>
-        </div>
-        <div class="col-2">
-          <p>No account? <%= link "Register", to: Routes.user_path(@conn, :new) %></p>
-        </div>
+          <div class="col-4">
+            <%= form_for @conn, Routes.session_path(@conn, :create), [class: "form-inline"], fn f -> %>
+            <%= text_input f, :email, class: "form-control" %>
+            <%= submit "Login", class: "btn btn-secondary" %>
+            <% end %>
+          </div>
+          <div class="col-2">
+            <p>No account? <%= link "Register", to: Routes.user_path(@conn, :new) %></p>
+          </div>
         <% end %>
       </div>
 

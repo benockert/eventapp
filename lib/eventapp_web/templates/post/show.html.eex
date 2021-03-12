@@ -34,4 +34,6 @@
   </div>
 <% else %>
   <p>Please <%= link "register", to: Routes.user_path(@conn, :new) %> or login to view this event.</p>
+  <br>
+  <p><i>If you were sent this link via email, please login with the associated email address.</i></p>
 <% end %>
