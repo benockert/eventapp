@@ -13,8 +13,9 @@
 
   <div class="form-group">
     <label>Email address</label>
-    <%= text_input f, :email, class: "form-control" %>
+    <%= text_input f, :email, class: "form-control", disabled: true %>
     <%= error_tag f, :email %>
+    <%= hidden_input f, :email %>
   </div>
 
   <div class="form-group">

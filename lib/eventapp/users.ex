@@ -49,6 +49,30 @@ defmodule Eventapp.Users do
     Repo.get_by(User, email: email)
   end
 
+  # checks that the invitee emails are of valid form
+  def check_invitee_email(email) do
+    user = get_user_by_email(email)
+    if user do
+      # the user exists, just return the email
+      email
+    else
+      at? = email
+      |> String.contains?("@")
+
+      dot? = email
+      |> String.contains?(".")
+
+      if at? && dot? do
+        # if the user does not exist yet but the email is in proper form, create a user entry
+        Repo.insert!(%User{username: "", email: email, picture_hash: ""})
+        # return the email for the invitee list
+        email
+      else
+        "INVALID"
+      end
+    end
+  end
+
   # checks that the email does not already have a user associated with it, and also
   # makes sure it is a valid email
   def validate_email(attrs) do
@@ -57,7 +81,7 @@ defmodule Eventapp.Users do
 
     user = get_user_by_email(email)
     if user do
-      # the user exits, return an error message
+      # the user exists, return an error message
       {:error, "User with that email already exists"}
     else
       at? = email
@@ -112,14 +136,9 @@ defmodule Eventapp.Users do
 
   """
   def update_user(%User{} = user, attrs) do
-    case validate_email(attrs) do
-      {:ok, attrs} ->
-        user
-        |> User.changeset(attrs)
-        |> Repo.update()
-      {:error, msg} ->
-        {:error, msg}
-    end
+    user
+    |> User.changeset(attrs)
+    |> Repo.update()
   end
 
   @doc """

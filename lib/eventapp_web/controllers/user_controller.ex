@@ -16,11 +16,12 @@ defmodule EventappWeb.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
+    # pic is the
     pic = user_params["picture"]
     {:ok, hash} = Pictures.save_picture(pic.filename, pic.path)
     user_params = user_params
+    |> Map.put("user_id", conn.assigns[:current_user].id)
     |> Map.put("picture_hash", hash)
-    #|> Map.put("user_id", conn.assigns[:current_user].id) TODO removed?
 
     case Users.create_user(user_params) do
       {:ok, user} ->
@@ -77,11 +78,6 @@ defmodule EventappWeb.UserController do
         |> redirect(to: Routes.user_path(conn, :show, user))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset)
-      # error message to display (if error with updating a user i.e. invalid email or duplicate)
-      {:error, msg} ->
-        conn
-        |> put_flash(:error, msg)
-        |> redirect(to: Routes.user_path(conn, :new))
     end
   end
 

@@ -14,7 +14,7 @@
 
   <div class="form-group">
     <%= label f, :date %>
-    <%= text_input f, :date, id: "datepicker", class: "form-control" %>
+    <%= text_input f, :date, id: "datepicker", class: "form-control", placeholder: "MM/DD/yyyy" %>
     <%= error_tag f, :date %>
     <small class="form-text text-muted">Enter the date of your event.</small>
   </div>
@@ -28,7 +28,7 @@
 
   <div class="form-group">
     <%= label f, :invitees %>
-    <%= text_input f, :invitees, class: "form-control" %>
+    <%= text_input f, :invitees, class: "form-control", placeholder: "email@domain.com, email2@domain.com"%>
     <%= error_tag f, :invitees %>
     <small class="form-text text-muted">Enter the emails of your guests separated by commas.</small>
   </div>

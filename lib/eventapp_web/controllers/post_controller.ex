@@ -33,11 +33,14 @@ defmodule EventappWeb.PostController do
         conn
         |> put_flash(:info, "Post created successfully.")
         |> redirect(to: Routes.post_path(conn, :show, post))
-
+      # error creating event
       {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "new.html", changeset: changeset)
+      # error for invalid invitee email
+      {:error, msg} ->
         conn
-        |> put_flash(:info, "Email must be valid.")
-        #render(conn, "new.html", changeset: changeset)
+        |> put_flash(:error, msg)
+        |> redirect(to: Routes.post_path(conn, :new))
     end
   end
 
@@ -65,9 +68,14 @@ defmodule EventappWeb.PostController do
         conn
         |> put_flash(:info, "Post updated successfully.")
         |> redirect(to: Routes.post_path(conn, :show, post))
-
+      # error updating post
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", post: post, changeset: changeset)
+      # error for invalid invitee email
+      {:error, msg} ->
+        conn
+        |> put_flash(:error, msg)
+        |> redirect(to: Routes.post_path(conn, :edit, post))
     end
   end
 

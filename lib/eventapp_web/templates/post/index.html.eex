@@ -19,7 +19,9 @@
         <%= if @conn.assigns[:current_user] do %>
           <td>
             <span><%= link "Show", to: Routes.post_path(@conn, :show, post) %></span>
-            <span><%= link "Edit", to: Routes.post_path(@conn, :edit, post) %></span>
+            <%= if @current_user.email === post.user.email do%>
+              <span><%= link "Edit", to: Routes.post_path(@conn, :edit, post) %></span>
+            <% end %>
           </td>
         <% else %>
           <td>

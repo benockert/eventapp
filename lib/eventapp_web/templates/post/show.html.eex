@@ -3,9 +3,11 @@
 
 </div>
 <%= if @conn.assigns[:current_user] do %>
+  <%= if @current_user.email === @post.user.email do %>
   <div>
     <%= link "Edit event", to: Routes.post_path(@conn, :edit, @post) %></p>
   </div>
+  <% end %>
   <div>
     <p><strong>Date: </strong><%= @post.date %></p>
     <p><strong>Description: </strong><%= @post.description %></p>
@@ -14,8 +16,10 @@
   </div>
   <div>
     <h3><u>Comments</u></h3>
+    <%= if String.contains?(@post.invitees, @current_user.email) || @post.user.email === @current_user.email do %>
       <%= render(EventappWeb.CommentView, "form.html", changeset: @new_comment,
       action: Routes.comment_path(@conn, :create))%>
+    <%= end %>
     <%= for comment <- @post.comments do %>
       <div class="card">
         <div class="card-body">
