@@ -13,16 +13,19 @@ alias Eventapp.Repo
 alias Eventapp.Users.User
 alias Eventapp.Posts.Post
 alias Eventapp.Responses.Response
+alias Eventapp.Comments.Comment
 
 #adding photos
 alias Eventapp.Pictures
 
 silhouette = Pictures.hash("stock.jpg")
+ben = Pictures.hash("ben.jpg")
+aoun = Pictures.hash("aoun.jpg")
 
-joseph = Repo.insert!(%User{username: "Joseph Aoun", email: "aoun.j@northeastern.edu", picture_hash: silhouette})
+joseph = Repo.insert!(%User{username: "Joseph Aoun", email: "aoun.j@northeastern.edu", picture_hash: aoun})
 andrade = Repo.insert!(%User{username: "Andrade Ferron", email: "ferron.a@northeastern.edu", picture_hash: silhouette})
 nat = Repo.insert!(%User{username: "Nat Tuck", email: "tuck.n@northeastern.edu", picture_hash: silhouette})
-benjamin = Repo.insert!(%User{username: "Benjamin Ockert", email: "ockert.b@northeastern.edu", picture_hash: silhouette})
+benjamin = Repo.insert!(%User{username: "Benjamin Ockert", email: "ockert.b@northeastern.edu", picture_hash: ben})
 steven = Repo.insert!(%User{username: "Steven Yoo", email: "yoo.s@northeastern.edu", picture_hash: silhouette})
 
 commencement = Repo.insert!(%Post{user_id: joseph.id, name: "Commencement",
@@ -38,5 +41,7 @@ dayoff = Repo.insert!(%Post{user_id: andrade.id, name: "Mental Health Day",
 Repo.insert!(%Response{response: "YES", user_id: benjamin.id, post_id: commencement.id})
 Repo.insert!(%Response{response: "NO", user_id: andrade.id, post_id: commencement.id})
 Repo.insert!(%Response{response: "NO RESPONSE", user_id: steven.id, post_id: commencement.id})
+Repo.insert!(%Response{response: "YES", user_id: benjamin.id, post_id: dayoff.id})
 
-Repo.insert!(%Response{response: "NO RESPONSE", user_id: benjamin.id, post_id: dayoff.id})
+Repo.insert!(%Comment{content: "Yay this is amazing!", user_id: benjamin.id, post_id: dayoff.id})
+Repo.insert!(%Comment{content: "I am looking forward to virtual commencement.", user_id: benjamin.id, post_id: commencement.id})
