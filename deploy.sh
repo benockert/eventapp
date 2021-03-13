@@ -8,7 +8,7 @@ echo "Beginning deploy of Eventapp..."
 mix deps.get --only prod
 mix compile
 
-mix ecto.migrate
+mix ecto.reset
 
 (cd assets && npm install --prefix)
 (cd assets && npm run deploy --prefix)
