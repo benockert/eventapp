@@ -18,7 +18,7 @@ events.benockert.site
 
 
 4. Is your app functionality complete? If not, what's missing?
-The only thing not working 100% is the . I generate a URL when an event is updated, but when a user accesses that path, it only works if they already exist as a user. If they don't, it takes them to the "Update user" page to complete their profile before accessing the event. I tried many ways to use the "referer" header in the 'conn' to direct back to the .../events/# page after a new user completes their account, but I couldn't get the referer path I needed to staty around long enough.
+The only thing not working 100% is the user redirect to the proper events page. I generate a URL when an event is created/updated, but when a user accesses that path, it only works if they already exist as a user. If they aren't a complete user, once they login it takes them to the "Update user" page to complete their profile before accessing the event. I tried many ways to use the "referer" header in the 'conn' to direct back to the .../events/# page after a new user completes their account, but I couldn't get the referer path I needed to staty around long enough.
 
 5. Is your app properly deployed? If not, what went wrong?
 Deployed
