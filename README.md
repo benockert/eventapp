@@ -2,9 +2,12 @@
 in-class PhotoBlog example.*
 
 # HW8 Design
-- When a post is created with invitee emails that are not associated with an account, a user entry is made with that email; upon logging in with that email, the user will be prompted to complete their account with a username and picture
+- When a post is created with invitee emails that are not associated with an account, a user entry is made with that email
+    - Upon logging in with that email, the user will be prompted to complete their account with a username and picture
+- By default, invitees' response to an event is "No response" but that can be updated to "Yes" or "No" when they access the event page
 - A user cannot edit their email once their account has been created
-- When a new comment is added, the user is redirected to the post, rather than the Show Comment page 
+- When a new comment is added, the user is directed back to the post, rather than the Show Comment page
+- When a response is updated, the user is directed back to the post, rather than the Show Response page
 
 # HW7 Design
 - Anyone can view an event, logged-in or not

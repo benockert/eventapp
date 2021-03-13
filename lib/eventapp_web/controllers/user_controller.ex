@@ -72,6 +72,8 @@ defmodule EventappWeb.UserController do
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
+    IO.inspect("HERE WE ARE")
+    IO.inspect(conn)
     user = Users.get_user!(id)
     pic = user_params["picture"]
 
@@ -87,7 +89,8 @@ defmodule EventappWeb.UserController do
       {:ok, user} ->
         conn
         |> put_flash(:info, "User updated successfully.")
-        |> redirect(to: Routes.user_path(conn, :show, user))
+        |> redirect(to: "/events")
+        # |> redirect(to: Routes.user_path(conn, :show, user))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset)
     end

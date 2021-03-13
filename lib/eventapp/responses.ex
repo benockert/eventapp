@@ -10,6 +10,7 @@ defmodule Eventapp.Responses do
   alias Eventapp.Responses.Response
 
 
+  # creates new default responses
   def create_responses(post) do
     IO.inspect(post.invitees)
 
@@ -49,6 +50,19 @@ defmodule Eventapp.Responses do
   """
   def get_response!(id), do: Repo.get!(Response, id)
 
+  # checks if the attributes of this response match the post and user id of the given response
+  def dup?(attrs, response) do
+    Map.get(attrs, "post_id") === Integer.to_string(response.post_id) && Integer.to_string(Map.get(attrs, "user_id")) === Integer.to_string(response.user_id)
+  end
+
+  # returns true if the user and post id of the two responses are the same
+  def check_duplicates(attrs, responses) do
+    responses
+    |> Enum.filter(fn resp -> dup?(attrs, resp) end)
+    |> Enum.at(0)
+  end
+
+
   @doc """
   Creates a response.
 
@@ -62,6 +76,12 @@ defmodule Eventapp.Responses do
 
   """
   def create_response(attrs \\ %{}) do
+    # deletes previous responses from the same user on the same post, if any
+    duplicate = check_duplicates(attrs, list_responses())
+    if duplicate do
+      delete_response(duplicate)
+    end
+
     %Response{}
     |> Response.changeset(attrs)
     |> Repo.insert()

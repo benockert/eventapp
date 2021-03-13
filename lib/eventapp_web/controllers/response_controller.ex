@@ -1,6 +1,7 @@
 defmodule EventappWeb.ResponseController do
   use EventappWeb, :controller
 
+  alias Eventapp.Posts
   alias Eventapp.Responses
   alias Eventapp.Responses.Response
 
@@ -17,11 +18,16 @@ defmodule EventappWeb.ResponseController do
   def create(conn, %{"response" => response_params}) do
     response_params = response_params
     |> Map.put("user_id", current_user_id(conn))
+    post = response_params
+    |> Map.get("post_id")
+    |> Posts.get_post!()
+
     case Responses.create_response(response_params) do
       {:ok, response} ->
         conn
-        |> put_flash(:info, "Response created successfully.")
-        |> redirect(to: Routes.response_path(conn, :show, response))
+        |> put_flash(:info, "Response updated successfully.")
+        |> redirect(to: Routes.post_path(conn, :show, post))
+        # redirect to the same post rather than the new response
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -46,7 +52,7 @@ defmodule EventappWeb.ResponseController do
       {:ok, response} ->
         conn
         |> put_flash(:info, "Response updated successfully.")
-        |> redirect(to: Routes.response_path(conn, :show, response))
+        |> redirect(to: Routes.post_path(conn, :show, Posts.get_post!(response.id)))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", response: response, changeset: changeset)

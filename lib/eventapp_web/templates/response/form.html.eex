@@ -7,20 +7,20 @@
 
   <div class="form-check form-check-inline">
     <%= label f, "Yes", class: "form-check-label"%>
-    <%= radio_button f, :response, "Yes" %>
+    <%= radio_button f, :response, "YES" %>
     <%= error_tag f, :response %>
     <%= hidden_input f, :post_id %>
     <%= hidden_input f, :user_id %>
   </div>
   <div class="form-check form-check-inline">
     <%= label f, "No", class: "form-check-label"%>
-    <%= radio_button f, :response, "No" %>
+    <%= radio_button f, :response, "NO" %>
     <%= error_tag f, :response %>
     <%= hidden_input f, :post_id %>
     <%= hidden_input f, :user_id %>
   </div>
-  <div>
-      <%= submit "Update", class: "btn btn-primary" %>
+  <div class="form-check-inline">
+      <%= submit "Update", class: "btn btn-primary btnResponse" %>
   </div>
 
 
